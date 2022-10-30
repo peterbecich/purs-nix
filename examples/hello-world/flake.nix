@@ -23,6 +23,28 @@
 
            p = nixpkgs.legacyPackages.${system};
 
+           foreign-generic = {
+
+             purs-nix-info = {
+               name = "bar";
+               dependencies =
+                 with purs-nix.ps-pkgs;
+                 [ effect
+                   foreign
+                   foreign-object
+                   ordered-collections
+                   exceptions
+                   record
+                   identity
+                 ];
+             };
+
+             src.git = {
+               repo = "https://github.com/jsparkes/purescript-foreign-generic.git";
+               rev = "844f2ababa2c7a0482bf871e1e6bf970b7e51313";
+             };
+           };
+
            ps =
              purs-nix.purs
                { dependencies =
@@ -30,6 +52,7 @@
                    [ console
                      effect
                      prelude
+                     foreign-generic
                    ];
 
                  dir = ./.;
